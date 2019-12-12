@@ -1,0 +1,21 @@
+#canvas {
+  align-items: center;
+  justify-items: center;
+  width: 80%;
+}
+@font-face {
+  font-family: Palatino;
+  src: url('../assets/fonts/pala.ttf');
+}
+.text {
+  font-family: 'Palatino';
+}
+div {
+  margin: auto;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  align-items: center;
+  justify-items: center;
+}
