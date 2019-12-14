@@ -1,7 +1,10 @@
-#canvas {
+.canvas {
   align-items: center;
   justify-items: center;
   width: 80%;
+}
+#canvas {
+  display: none;
 }
 @font-face {
   font-family: Palatino;

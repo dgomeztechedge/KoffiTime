@@ -12,6 +12,7 @@ export class AppComponent implements AfterViewInit {
   public context: CanvasRenderingContext2D;
   title = "KoffiTime";
   texto = "KoffiTime";
+  rutaImagen = "../assets/imgs/coffe.png";
   fuente = 48;
   ngAfterViewInit(): void {
     this.context = (this.Canvas.nativeElement as HTMLCanvasElement).getContext(
@@ -36,6 +37,8 @@ export class AppComponent implements AfterViewInit {
         this.context.fillText(x, 650, y);
         y += this.fuente + 10;
       });
+      this.rutaImagen = (this.Canvas
+        .nativeElement as HTMLCanvasElement).toDataURL();
     }, 250);
   }
   contarTexto(text: string): string[] {
