@@ -4,8 +4,12 @@
   </canvas>
   <img src="{{rutaImagen}}" class="canvas">
   <div style="display: inline;">
-    <input type="text" class="text" [(ngModel)]="texto">
-    <input type="number" class="text" [(ngModel)]="fuente">
+    <mat-form-field>
+      <input matInput type="text" class="text" [(ngModel)]="texto">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="number" class="text" [(ngModel)]="fuente">
+    </mat-form-field>
   </div>
-  <button (click)="addText()">Go</button>
+  <button mat-raised-button (click)="addText()">Go</button>
 </div>

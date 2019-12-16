@@ -1,7 +1,7 @@
 .canvas {
   align-items: center;
   justify-items: center;
-  width: 80%;
+  width: 70%;
 }
 #canvas {
   display: none;
@@ -12,6 +12,7 @@
 }
 .text {
   font-family: 'Palatino';
+  color: white;
 }
 div {
   margin: auto;
