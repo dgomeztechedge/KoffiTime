@@ -2,7 +2,7 @@
   <canvas width="991" height="558" #canvas id="canvas" class="canvas" style="font-family: Palatino;">
     <img src="../assets/imgs/coffe.png" />
   </canvas>
-  <img src="{{rutaImagen}}" class="canvas">
+  <img #image src="{{rutaImagen}}" class="canvas" (click)="getCoordinates($event)">
   <div style="display: inline;">
     <mat-form-field>
       <input matInput type="text" class="text" [(ngModel)]="texto">
@@ -11,5 +11,5 @@
       <input matInput type="number" class="text" [(ngModel)]="fuente">
     </mat-form-field>
   </div>
-  <button mat-raised-button (click)="addText()">Go</button>
+  <button mat-raised-button (click)="addText(650, 250)">Go</button>
 </div>

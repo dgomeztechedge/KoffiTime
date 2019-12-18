@@ -1,6 +1,5 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { ViewChild, ElementRef } from '@angular/core';
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -8,6 +7,7 @@ import { ViewChild, ElementRef } from '@angular/core';
 })
 export class AppComponent implements AfterViewInit {
   @ViewChild('canvas', { static: false }) Canvas: ElementRef;
+  @ViewChild('image', {static: false}) img: ElementRef;
   public context: CanvasRenderingContext2D;
   title = 'KoffiTime';
   texto = 'KoffiTime';
@@ -21,10 +21,9 @@ export class AppComponent implements AfterViewInit {
       this.drawImage();
     }
   }
-  addText(): void {
+  addText(x,y): void {
     this.drawImage();
     const arrayFrase = this.contarTexto(`"${this.texto}"`);
-    let y = 250;
     setTimeout(() => {
       this.context.font = `${this.fuente}px Palatino`;
       this.context.fillStyle = '#FFFFFF';
@@ -32,13 +31,23 @@ export class AppComponent implements AfterViewInit {
       if (arrayFrase.length !== 1) {
         y = y - (this.fuente + 10) * (arrayFrase.length / 2);
       }
-      arrayFrase.forEach(x => {
-        this.context.fillText(x, 650, y);
+      arrayFrase.forEach(frase => {
+        this.context.fillText(frase, x, y);
         y += this.fuente + 10;
       });
       this.rutaImagen = (this.Canvas
         .nativeElement as HTMLCanvasElement).toDataURL();
     }, 250);
+  }
+
+  getCoordinates(event) {
+    const rect = (this.img.nativeElement);
+    const differenceX = rect.scrollWidth / 991;
+    const differenceY = rect.scrollHeight / 558;
+    var x =  (event.clientX / differenceX) - (this.fuente * 4);
+    var y =  event.clientY / differenceY ;
+    console.log(x,y)
+    this.addText(x, y);
   }
   contarTexto(text: string): string[] {
     const arrayText = text.split(' ');
