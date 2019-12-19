@@ -11,6 +11,8 @@ export class AppComponent implements AfterViewInit {
   public context: CanvasRenderingContext2D;
   title = 'KoffiTime';
   texto = 'KoffiTime';
+  file: File = null;
+  fileSrc = '';
   rutaImagen = '../assets/imgs/coffe.png';
   fuente = 48;
   ngAfterViewInit(): void {
@@ -28,10 +30,17 @@ export class AppComponent implements AfterViewInit {
       this.context.font = `${this.fuente}px Palatino`;
       this.context.fillStyle = '#FFFFFF';
       this.context.textAlign = 'center';
+      this.context.lineJoin = 'round';
+      this.context.miterLimit = 2;
+      this.context.strokeStyle = 'black';
+      this.context.lineWidth = (this.fuente / 10);
+
+
       if (arrayFrase.length !== 1) {
         y = y - (this.fuente + 10) * (arrayFrase.length / 2);
       }
       arrayFrase.forEach(frase => {
+        this.context.strokeText(frase, x, y);
         this.context.fillText(frase, x, y);
         y += this.fuente + 10;
       });
@@ -44,9 +53,8 @@ export class AppComponent implements AfterViewInit {
     const rect = (this.img.nativeElement);
     const differenceX = rect.scrollWidth / 991;
     const differenceY = rect.scrollHeight / 558;
-    var x =  (event.clientX / differenceX) - (this.fuente * 4);
+    var x =  (event.clientX / differenceX) - (this.fuente * (this.texto.length / 2));
     var y =  event.clientY / differenceY ;
-    console.log(x,y)
     this.addText(x, y);
   }
   contarTexto(text: string): string[] {
@@ -67,8 +75,28 @@ export class AppComponent implements AfterViewInit {
   drawImage(): void {
     const img = new Image();
     img.onload = x => {
-      this.context.drawImage(img, 0, 0);
+      this.context.drawImage(img, 0, 0, 991, 558);
     };
-    img.src = '../assets/imgs/coffe.png';
+    if (this.file === null) {
+      img.src = '../assets/imgs/coffe.png';
+    } else {
+      img.src = this.fileSrc;
+    }
+  }
+
+  onFileSelected(file: FileList) {
+    this.file = file.item(0);
+    const img = new Image();
+    const fr = new FileReader();
+    fr.onload = (x) => {
+      this.fileSrc = fr.result as string;
+      img.src = fr.result as string;
+    };
+    img.onload = x => {
+      this.context.drawImage(img, 0, 0, 991, 558);
+      this.rutaImagen = (this.Canvas
+        .nativeElement as HTMLCanvasElement).toDataURL();
+    };
+    fr.readAsDataURL(this.file);
   }
 }

@@ -6,6 +6,9 @@
 #canvas {
   display: none;
 }
+span {
+  color: white !important;
+}
 @font-face {
   font-family: Palatino;
   src: url('../assets/fonts/pala.ttf');
