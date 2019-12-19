@@ -12,7 +12,7 @@ export class AppComponent implements AfterViewInit {
   title = 'KoffiTime';
   texto = 'KoffiTime';
   file: File = null;
-  fileSrc = '';
+  fileSrc: string = null;
   rutaImagen = '../assets/imgs/coffe.png';
   fuente = 48;
   ngAfterViewInit(): void {
@@ -52,7 +52,7 @@ export class AppComponent implements AfterViewInit {
     const rect = this.img.nativeElement;
     const differenceX = rect.scrollWidth / 991;
     const differenceY = rect.scrollHeight / 558;
-    const x = event.clientX / differenceX - this.fuente * (this.texto.length / 2);
+    const x = event.clientX / differenceX - (this.fuente * 4);
     const y = event.clientY / differenceY;
     this.addText(x, y);
   }
@@ -78,8 +78,8 @@ export class AppComponent implements AfterViewInit {
     img.onload = x => {
       this.context.drawImage(img, 0, 0, 991, 558);
     };
-    if (this.file === null) {
-      img.src = '../assets/imgs/coffe.png';
+    if (this.fileSrc === null) {
+      img.src = "../assets/imgs/coffe.png";
     } else {
       img.src = this.fileSrc;
     }
