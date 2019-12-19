@@ -12,9 +12,13 @@
     </mat-form-field>
     <mat-form-field class="text">
       <mat-label class="text">Sube tu imagen</mat-label>
-      <ngx-mat-file-input type="file" accept="image/*" (change)="onFileSelected($event.target.files)"></ngx-mat-file-input>
+      <ngx-mat-file-input type="file" accept="image/*" (change)="onFileSelected($event.target.files)">
+      </ngx-mat-file-input>
       <mat-icon matSuffix>folder</mat-icon>
     </mat-form-field>
+    <mcc-color-picker (change)="onChange($event)">
+    </mcc-color-picker>
+
   </div>
   <button mat-raised-button (click)="addText(650, 250)">Go</button>
 </div>

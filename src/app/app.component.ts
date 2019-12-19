@@ -9,8 +9,8 @@ export class AppComponent implements AfterViewInit {
   @ViewChild('canvas', { static: false }) Canvas: ElementRef;
   @ViewChild('image', { static: false }) img: ElementRef;
   public context: CanvasRenderingContext2D;
-  title = 'KoffiTime';
   texto = 'KoffiTime';
+  color = 'white';
   file: File = null;
   fileSrc: string = null;
   rutaImagen = '../assets/imgs/coffe.png';
@@ -28,7 +28,7 @@ export class AppComponent implements AfterViewInit {
     const arrayFrase = this.contarTexto(`"${this.texto}"`);
     setTimeout(() => {
       this.context.font = `${this.fuente}px Palatino`;
-      this.context.fillStyle = '#FFFFFF';
+      this.context.fillStyle = this.color;
       this.context.textAlign = 'center';
       this.context.lineJoin = 'round';
       this.context.miterLimit = 2;
@@ -52,7 +52,7 @@ export class AppComponent implements AfterViewInit {
     const rect = this.img.nativeElement;
     const differenceX = rect.scrollWidth / 991;
     const differenceY = rect.scrollHeight / 558;
-    const x = event.clientX / differenceX - (this.fuente * 4);
+    const x = event.clientX / differenceX - this.fuente * 4;
     const y = event.clientY / differenceY;
     this.addText(x, y);
   }
@@ -79,7 +79,7 @@ export class AppComponent implements AfterViewInit {
       this.context.drawImage(img, 0, 0, 991, 558);
     };
     if (this.fileSrc === null) {
-      img.src = "../assets/imgs/coffe.png";
+      img.src = '../assets/imgs/coffe.png';
     } else {
       img.src = this.fileSrc;
     }
@@ -87,8 +87,10 @@ export class AppComponent implements AfterViewInit {
 
   @HostListener('paste', ['$event.clipboardData.files'])
   onPaste(e) {
-    console.log(e);
     this.onFileSelected(e);
+  }
+  onChange(event) {
+    this.color = event;
   }
 
   onFileSelected(file: FileList) {
